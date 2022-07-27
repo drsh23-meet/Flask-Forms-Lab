@@ -6,21 +6,35 @@ app = Flask(  # Create a flask app
 	template_folder='templates',  # Name of html file folder
 	static_folder='static'  # Name of directory for static files
 )
+app.config['SECRET_KEY'] = 'super-secret-key'
 
-
-username = "llo2ay"
+username = "dror"
 password = "123"
 facebook_friends=["Loai","Yonathan","Adan", "George", "Fouad", "Celina"]
+friends_exits='name'
 
-
-@app.route('/')  # '/' for the default page
+@app.route('/', methods=['GET','POST'])  # '/' for the default page
 def login():
-  return render_template('login.html')
-  
+	if request.method=='POST':
+		if request.form['username']=="dror" and request.form['password']=="123":
+			return redirect(url_for('home'))
+		else:
+			return render_template('login.html')		
+	else:
+		return render_template('login.html')
+
+@app.route('/home')
+def home():
+	return render_template("home.html",facebook_friends=facebook_friends)
+
+	
+@app.route('/friends_exits/<string:name>',methods=['GET','POST'])
+def friends_exits(name):
+	return render_template('friend_exists.html',facebook_friends='name')
 
 
 
 if __name__ == "__main__":  # Makes sure this is the main process
 	app.run( # Starts the site
-    debug=True
+		debug=True
 	)

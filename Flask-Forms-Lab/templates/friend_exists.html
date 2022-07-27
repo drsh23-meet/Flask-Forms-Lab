@@ -9,8 +9,11 @@
 
 </head>
 <body>
-
-
+{% for i in name %}
+{% if i == name %}
+<h1>{{i}}</h1>
+{% endif %}
+{% endfor %}
 
 </body>
 </html>
