@@ -7,7 +7,8 @@ app = Flask(  # Create a flask app
 	static_folder='static'  # Name of directory for static files
 )
 app.config['SECRET_KEY'] = 'super-secret-key'
-
+login1={'dror':'123','a':'2122','b':'3233'}
+password={}
 username = "dror"
 password = "123"
 facebook_friends=["Loai","Yonathan","Adan", "George", "Fouad", "Celina"]
@@ -16,10 +17,11 @@ friends_exits='name'
 @app.route('/', methods=['GET','POST'])  # '/' for the default page
 def login():
 	if request.method=='POST':
-		if request.form['username']=="dror" and request.form['password']=="123":
-			return redirect(url_for('home'))
-		else:
-			return render_template('login.html')		
+		for i in login1:
+			if request.form['username']==i and request.form['password']==login1[i]:
+				return redirect(url_for('home'))
+			else:
+				return render_template('login.html')		
 	else:
 		return render_template('login.html')
 
@@ -30,7 +32,7 @@ def home():
 	
 @app.route('/friends_exits/<string:name>',methods=['GET','POST'])
 def friends_exits(name):
-	return render_template('friend_exists.html',facebook_friends='name')
+	return render_template('friend_exists.html',facebook_friends=name)
 
 
 
