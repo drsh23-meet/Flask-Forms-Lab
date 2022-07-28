@@ -20,8 +20,8 @@ def login():
 		for i in login1:
 			if request.form['username']==i and request.form['password']==login1[i]:
 				return redirect(url_for('home'))
-			else:
-				return render_template('login.html')		
+		else:
+			return render_template('login.html')		
 	else:
 		return render_template('login.html')
 
